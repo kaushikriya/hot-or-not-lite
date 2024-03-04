@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useGetVideos } from "../Data/useGetVideos";
 import { VideoPlayer } from "./VideoPlayer";
 
@@ -8,12 +8,10 @@ export const Dashboard = () => {
   console.log(videos);
 
   return (
-    <div>
-      <>
-        {videos?.map((video, index) => (
-          <VideoPlayer video={video} key={index} />
-        ))}
-      </>
+    <div className="w-full h-full">
+      {videos?.map((video, index) => (
+        <VideoPlayer video={video} />
+      ))}
     </div>
   );
 };

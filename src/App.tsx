@@ -6,12 +6,9 @@ import React from "react";
 function App() {
   const queryClient = new QueryClient();
   return (
-    <div className="App">
+    <div className="h-screen w-full flex items-center justify-center">
       <QueryClientProvider client={queryClient}>
-        <div>
-          <Dashboard />
-          Please
-        </div>
+        <Dashboard />
       </QueryClientProvider>
     </div>
   );
