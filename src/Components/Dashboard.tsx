@@ -1,17 +1,33 @@
-import React from "react";
-import { useGetVideos } from "../Data/useGetVideos";
+import React, { useEffect, useRef, useState } from "react";
+import { Video, useGetVideos } from "../Data/useGetVideos";
 import { VideoPlayer } from "./VideoPlayer";
+import InfiniteScroll from "react-infinite-scroller";
 
 export const Dashboard = () => {
-  const { data: videos, isLoading, isError } = useGetVideos();
+  const { data: videosData } = useGetVideos();
+  const [videos, setVideos] = useState<Video[]>([]);
 
-  console.log(videos);
+  useEffect(() => {
+    if (videosData) setVideos(videosData);
+  }, [videosData]);
 
   return (
-    <div className="w-full h-full">
-      {videos?.map((video, index) => (
-        <VideoPlayer video={video} />
-      ))}
-    </div>
+    <InfiniteScroll
+      loadMore={() => {
+        if (videosData) setVideos([...videos, ...videosData]);
+      }}
+      hasMore={true}
+      loader={
+        <div className="loader" key={0}>
+          Loading ...
+        </div>
+      }
+    >
+      <div className="w-full h-full">
+        {videos?.map((video: Video, index: number) => (
+          <VideoPlayer video={video} key={index} />
+        ))}
+      </div>
+    </InfiniteScroll>
   );
 };
