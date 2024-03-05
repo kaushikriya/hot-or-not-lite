@@ -67,15 +67,19 @@ export const Dashboard = () => {
     setMuted(!muted);
   };
 
+  const getAudioIcon = () => {
+    return muted ? (
+      <Unmute className="w-8 h-8" />
+    ) : (
+      <Mute className="w-8 h-8" />
+    );
+  };
+
   return (
     <>
       <div className="p-2 w-[40%] fixed top-0 z-50 flex justify-end">
         <button className="fixed w-8 h-8" onClick={() => setMuted(!muted)}>
-          {muted ? (
-            <Unmute className="w-8 h-8" />
-          ) : (
-            <Mute className="w-8 h-8" />
-          )}
+          {getAudioIcon()}
         </button>
       </div>
       <InfiniteScroll
