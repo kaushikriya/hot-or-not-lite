@@ -4,9 +4,10 @@ import { VideoPlayer } from "./VideoPlayer";
 import InfiniteScroll from "react-infinite-scroller";
 import { ReactComponent as Mute } from "../Assets/mute.svg";
 import { ReactComponent as Unmute } from "../Assets/mute.svg";
+import { ReactComponent as HotOrNot } from "../Assets/hotOrNot.svg";
 
 export const Dashboard = () => {
-  const { data: videosData } = useGetVideos();
+  const { data: videosData, isPending } = useGetVideos();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [muted, setMuted] = useState(true);
   const [videos, setVideos] = useState<Video[]>([]);
@@ -75,10 +76,18 @@ export const Dashboard = () => {
     );
   };
 
+  console.log(isPending);
+
   return (
     <>
-      <div className="p-2 w-[40%] fixed top-0 z-50 flex justify-end">
-        <button className="fixed w-8 h-8" onClick={() => setMuted(!muted)}>
+      <div className="w-[40%] absolute top-0 z-50 grid grid-cols-2 my-5">
+        <div className="grid-cols-1 flex justify-end">
+          <HotOrNot />
+        </div>
+        <button
+          className="grid-cols-1 flex justify-end"
+          onClick={() => setMuted(!muted)}
+        >
           {getAudioIcon()}
         </button>
       </div>
