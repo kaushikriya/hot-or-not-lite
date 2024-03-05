@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Video } from "../Data/useGetVideos";
+import { ReactComponent as Views } from "../Assets/views.svg";
 
 export const VideoPlayer = ({
   video,
@@ -37,7 +38,7 @@ export const VideoPlayer = ({
   }, [muted]);
 
   return (
-    <div className="snap-start grid w-screen transition-all h-screen place-items-center shrink-0">
+    <div className="snap-start grid relative w-screen transition-all h-screen place-items-center shrink-0">
       <video
         loop
         onClick={onVideoTap}
@@ -50,6 +51,20 @@ export const VideoPlayer = ({
       >
         <source src={video.url} type="video/mp4" className="object-fit" />
       </video>
+      <div className="absolute z-20 flex w-[40%] bottom-5 p-2 my-5">
+        <img
+          className="rounded-full h-10 w-10 border-white border-2"
+          src={video.uploadedByAvatar}
+          alt={video.uploadedByName}
+        />
+        <div className="grid ml-2 text-white">
+          <p>{video.uploadedByName}</p>
+          <div className="flex items-center">
+            <Views className="w-4 h-4 mr-1" />
+            <p>2,500</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

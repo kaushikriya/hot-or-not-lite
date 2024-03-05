@@ -2,6 +2,11 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
 export interface Video {
   id: string;
+  createdAt: string;
+  uploadedByName: string;
+  uploaderByUserName: string;
+  uploadedByAvatar: string;
+  title: string;
   url: string;
 }
 
@@ -19,24 +24,9 @@ export const useGetVideos = (): UseGetVideosResult => {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
 
-      const stream = response.body;
-      const textDecoder = new TextDecoder("utf-8");
-      const reader = stream?.getReader();
-      let chunks = "";
+      const jsonData = await response.json();
 
-      while (true) {
-        const result = await reader?.read();
-
-        if (result?.done) {
-          break;
-        }
-
-        chunks += textDecoder.decode(result?.value);
-      }
-
-      const jsonData = JSON.parse(chunks) as Video[];
-
-      return jsonData;
+      return jsonData as Video[];
     },
   });
 

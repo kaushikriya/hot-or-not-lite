@@ -87,7 +87,7 @@ export const Dashboard = () => {
           console.log("loading more");
           // if (videosData) setVideos([...videos, ...videosData]);
         }}
-        hasMore={true}
+        hasMore={false}
         loader={
           <div className="loader" key={0}>
             Loading ...
@@ -95,7 +95,7 @@ export const Dashboard = () => {
         }
       >
         <div
-          className="snap-y snap-mandatory h-screen w-screen mx:auto overflow-scroll"
+          className="snap-y snap-mandatory h-screen w-screen mx:auto overflow-y-auto"
           ref={containerRef}
         >
           <button onClick={handleMute}>{muted ? <Unmute /> : <Mute />}</button>
