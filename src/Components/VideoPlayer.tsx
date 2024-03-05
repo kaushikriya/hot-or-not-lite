@@ -37,7 +37,7 @@ export const VideoPlayer = ({
   }, [muted]);
 
   return (
-    <div className="w-full h-full flex justify-center items-center snap-always snap-center transition-all">
+    <div className="snap-start grid w-screen transition-all h-screen place-items-center shrink-0">
       <video
         loop
         onClick={onVideoTap}

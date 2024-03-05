@@ -84,7 +84,8 @@ export const Dashboard = () => {
       </div>
       <InfiniteScroll
         loadMore={() => {
-          if (videosData) setVideos([...videos, ...videosData]);
+          console.log("loading more");
+          // if (videosData) setVideos([...videos, ...videosData]);
         }}
         hasMore={true}
         loader={
@@ -93,7 +94,10 @@ export const Dashboard = () => {
           </div>
         }
       >
-        <div className="w-full h-full" ref={containerRef}>
+        <div
+          className="snap-y snap-mandatory h-screen w-screen mx:auto overflow-scroll"
+          ref={containerRef}
+        >
           <button onClick={handleMute}>{muted ? <Unmute /> : <Mute />}</button>
           {videos?.map((video: Video, index: number) => (
             <VideoPlayer
