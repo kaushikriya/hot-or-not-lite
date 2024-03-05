@@ -28,12 +28,17 @@ export const Dashboard = () => {
         const { isIntersecting, target } = entry;
         const videoElement = target as HTMLVideoElement;
 
-        if (isIntersecting && videoElement.paused) {
-          videoElement.play().catch((error) => {
-            console.error("Error during video play:", error);
-          });
-        } else if (!isIntersecting && !videoElement.paused) {
-          videoElement.pause();
+        if (isIntersecting) {
+          if (videoElement.paused) {
+            videoElement.play().catch((error) => {
+              console.error("Error during video play:", error);
+            });
+          }
+        } else {
+          if (!videoElement.paused) {
+            videoElement.pause();
+            videoElement.currentTime = 0; // Reset playback position to the beginning
+          }
         }
       });
     };
