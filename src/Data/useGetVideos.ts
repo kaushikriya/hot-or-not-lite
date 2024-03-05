@@ -34,7 +34,7 @@ export const useGetVideos = (): UseGetVideosResult => {
         chunks += textDecoder.decode(result?.value);
       }
 
-      const jsonData = JSON.parse(chunks) as Video[]; // Assuming your API response has an array of videos
+      const jsonData = JSON.parse(chunks) as Video[];
 
       return jsonData;
     },
