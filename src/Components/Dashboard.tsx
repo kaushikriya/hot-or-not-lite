@@ -4,6 +4,7 @@ import { VideoPlayer } from "./VideoPlayer";
 import InfiniteScroll from "react-infinite-scroller";
 import { ReactComponent as Mute } from "../Assets/mute.svg";
 import { ReactComponent as Unmute } from "../Assets/mute.svg";
+
 export const Dashboard = () => {
   const { data: videosData } = useGetVideos();
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -62,29 +63,40 @@ export const Dashboard = () => {
   };
 
   return (
-    <InfiniteScroll
-      loadMore={() => {
-        if (videosData) setVideos([...videos, ...videosData]);
-      }}
-      hasMore={true}
-      loader={
-        <div className="loader" key={0}>
-          Loading ...
-        </div>
-      }
-    >
-      <div className="w-full h-full" ref={containerRef}>
-        <button onClick={handleMute}>{muted ? <Unmute /> : <Mute />}</button>
-        {videos?.map((video: Video, index: number) => (
-          <VideoPlayer
-            video={video}
-            key={index}
-            setVideoRef={handleVideoRef(index)}
-            autoPlay={false}
-            muted={muted}
-          />
-        ))}
+    <>
+      <div className="p-2 w-[40%] fixed top-0 z-50 flex justify-end">
+        <button className="fixed w-8 h-8" onClick={() => setMuted(!muted)}>
+          {muted ? (
+            <Unmute className="w-8 h-8" />
+          ) : (
+            <Mute className="w-8 h-8" />
+          )}
+        </button>
       </div>
-    </InfiniteScroll>
+      <InfiniteScroll
+        loadMore={() => {
+          if (videosData) setVideos([...videos, ...videosData]);
+        }}
+        hasMore={true}
+        loader={
+          <div className="loader" key={0}>
+            Loading ...
+          </div>
+        }
+      >
+        <div className="w-full h-full" ref={containerRef}>
+          <button onClick={handleMute}>{muted ? <Unmute /> : <Mute />}</button>
+          {videos?.map((video: Video, index: number) => (
+            <VideoPlayer
+              video={video}
+              key={index}
+              setVideoRef={handleVideoRef(index)}
+              autoPlay={false}
+              muted={muted}
+            />
+          ))}
+        </div>
+      </InfiniteScroll>
+    </>
   );
 };

@@ -37,21 +37,19 @@ export const VideoPlayer = ({
   }, [muted]);
 
   return (
-    <div className="relative w-full h-full flex justify-center items-center snap-always snap-center transition-all">
-      <div className="w-1/2 relative">
-        <video
-          loop
-          onClick={onVideoTap}
-          ref={(ref) => {
-            videoRef.current = ref;
-            setVideoRef(ref);
-          }}
-          className="h-screen object-fill z-10"
-          muted={true}
-        >
-          <source src={video.url} type="video/mp4" className="object-fit" />
-        </video>
-      </div>
+    <div className="w-full h-full flex justify-center items-center snap-always snap-center transition-all">
+      <video
+        loop
+        onClick={onVideoTap}
+        ref={(ref) => {
+          videoRef.current = ref;
+          setVideoRef(ref);
+        }}
+        className="w-[40%] object-fill h-screen z-10"
+        muted={true}
+      >
+        <source src={video.url} type="video/mp4" className="object-fit" />
+      </video>
     </div>
   );
 };
