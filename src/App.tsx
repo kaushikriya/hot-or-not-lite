@@ -12,7 +12,7 @@ import { ReactComponent as Hot } from "./Assets/hot.svg";
 
 function App() {
   return (
-    <div className="relative h-screen w-full flex items-center justify-center">
+    <div className="relative h-screen w-full flex items-center justify-center backdrop-blur-xl">
       <Dashboard />
       <div className="p-2 grid fixed bottom-0 z-50 w-[40%]">
         <div className="grid py-3 justify-end">
