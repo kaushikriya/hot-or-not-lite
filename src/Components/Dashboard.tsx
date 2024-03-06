@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Video, useGetVideos } from "../Data/useGetVideos";
 import { VideoPlayer } from "./VideoPlayer";
-import InfiniteScroll from "react-infinite-scroller";
 import { ReactComponent as Mute } from "../Assets/mute.svg";
-import { ReactComponent as Unmute } from "../Assets/mute.svg";
+import { ReactComponent as Unmute } from "../Assets/unmute.svg";
 import { ReactComponent as HotOrNot } from "../Assets/hotOrNot.svg";
+import { FixedSizeList } from "react-window";
+import InfiniteLoader from "react-window-infinite-loader";
 
 export const Dashboard = () => {
-  const { data: videosData, isPending } = useGetVideos();
+  const { data: videosData } = useGetVideos();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [muted, setMuted] = useState(true);
   const [videos, setVideos] = useState<Video[]>([]);
@@ -21,7 +22,7 @@ export const Dashboard = () => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.8,
+      threshold: 0.6,
     };
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -38,7 +39,7 @@ export const Dashboard = () => {
         } else {
           if (!videoElement.paused) {
             videoElement.pause();
-            videoElement.currentTime = 0; // Reset playback position to the beginning
+            videoElement.currentTime = 0;
           }
         }
       });
@@ -64,61 +65,65 @@ export const Dashboard = () => {
     }
   };
 
-  const handleMute = () => {
-    setMuted(!muted);
-  };
-
   const getAudioIcon = () => {
     return muted ? (
-      <Unmute className="w-8 h-8" />
+      <Unmute className="w-9 h-9" />
     ) : (
       <Mute className="w-8 h-8" />
     );
   };
 
-  console.log(isPending);
+  const Row = ({ index, style }: { index: number; style: any }) => (
+    <div
+      className="snap-start shrink-0 transition-all  place-items-center snap-always"
+      ref={containerRef}
+      style={style}
+    >
+      <VideoPlayer
+        video={videos[index]}
+        key={index}
+        setVideoRef={handleVideoRef(index)}
+        muted={muted}
+      />
+    </div>
+  );
 
   return (
     <>
-      <div className="w-[40%] absolute top-0 z-50 grid grid-cols-2 my-5">
-        <div className="grid-cols-1 flex justify-end">
+      <div className="w-full absolute top-[5%] z-50 grid grid-cols-3">
+        <div className="col-span-2 flex justify-center ml-[50%]">
           <HotOrNot />
         </div>
         <button
-          className="grid-cols-1 flex justify-end"
+          className="col-span-1 flex justify-end"
           onClick={() => setMuted(!muted)}
         >
           {getAudioIcon()}
         </button>
       </div>
-      <InfiniteScroll
-        loadMore={() => {
-          console.log("loading more");
-          // if (videosData) setVideos([...videos, ...videosData]);
+      <InfiniteLoader
+        isItemLoaded={(index) => index < videos.length}
+        itemCount={videos.length + 1}
+        loadMoreItems={() => {
+          if (videosData && videosData?.length > 0) {
+            setVideos(videos.concat(videosData));
+          }
         }}
-        hasMore={false}
-        loader={
-          <div className="loader" key={0}>
-            Loading ...
-          </div>
-        }
       >
-        <div
-          className="snap-y snap-mandatory h-screen w-screen mx:auto overflow-y-auto"
-          ref={containerRef}
-        >
-          <button onClick={handleMute}>{muted ? <Unmute /> : <Mute />}</button>
-          {videos?.map((video: Video, index: number) => (
-            <VideoPlayer
-              video={video}
-              key={index}
-              setVideoRef={handleVideoRef(index)}
-              autoPlay={false}
-              muted={muted}
-            />
-          ))}
-        </div>
-      </InfiniteScroll>
+        {({ onItemsRendered, ref }) => (
+          <FixedSizeList
+            height={1000}
+            width={1000}
+            itemCount={videos.length + 1}
+            itemSize={1000}
+            onItemsRendered={onItemsRendered}
+            ref={ref}
+            style={{ scrollSnapType: "y mandatory" }}
+          >
+            {Row}
+          </FixedSizeList>
+        )}
+      </InfiniteLoader>
     </>
   );
 };

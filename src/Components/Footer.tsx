@@ -1,4 +1,4 @@
-import { ReactComponent as HomeIcon } from "../Assets/home-icon.svg";
+import { ReactComponent as Home } from "../Assets/home-icon.svg";
 import { ReactComponent as Subscribe } from "../Assets/subscribe.svg";
 import { ReactComponent as Add } from "../Assets/add.svg";
 import { ReactComponent as Options } from "../Assets/options.svg";
@@ -11,7 +11,7 @@ export const iconStyle =
 export const Footer = () => {
   return (
     <div className="flex justify-between py-10">
-      <HomeIcon className={iconStyle} />
+      <Home className={iconStyle} />
       <Subscribe className={iconStyle} />
       <Add className={iconStyle} />
       <Options className={iconStyle} />

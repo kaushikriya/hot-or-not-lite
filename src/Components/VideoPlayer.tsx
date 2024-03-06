@@ -4,22 +4,14 @@ import { ReactComponent as Views } from "../Assets/views.svg";
 
 export const VideoPlayer = ({
   video,
-  autoPlay,
   setVideoRef,
   muted,
 }: {
   video: Video;
-  autoPlay: boolean;
   setVideoRef: (index: HTMLVideoElement | null) => void;
   muted: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    if (autoPlay && videoRef.current) {
-      videoRef.current.play();
-    }
-  }, [autoPlay]);
 
   const onVideoTap = () => {
     if (videoRef.current) {
@@ -37,8 +29,10 @@ export const VideoPlayer = ({
     }
   }, [muted]);
 
+  if (!video) return <div>Loading....</div>;
+
   return (
-    <div className="snap-start grid relative w-screen transition-all h-screen place-items-center shrink-0">
+    <div className="grid relative w-full place-items-center">
       <video
         loop
         onClick={onVideoTap}
@@ -46,18 +40,19 @@ export const VideoPlayer = ({
           videoRef.current = ref;
           setVideoRef(ref);
         }}
-        className="w-[40%] object-fill h-screen z-10"
+        className="w-full md:w-[80%] object-fill h-screen z-10"
         muted={true}
+        autoPlay={true}
       >
         <source src={video.url} type="video/mp4" className="object-fit" />
       </video>
-      <div className="absolute z-20 flex w-[40%] bottom-5 p-2 my-5">
+      <div className="absolute z-20 flex gap-2 items-center justify-start w-[75%] bottom-[12%]">
         <img
           className="rounded-full h-10 w-10 border-white border-2"
           src={video.uploadedByAvatar}
           alt={video.uploadedByName}
         />
-        <div className="grid ml-2 text-white">
+        <div className="grid text-white">
           <p>{video.uploadedByName}</p>
           <div className="flex items-center">
             <Views className="w-4 h-4 mr-1" />
