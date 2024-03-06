@@ -17,12 +17,13 @@ export const Dashboard = () => {
     if (videosData) setVideos(videosData);
   }, [videosData]);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
+  const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.6,
+      threshold: 0.8,
     };
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -36,32 +37,35 @@ export const Dashboard = () => {
               console.error("Error during video play:", error);
             });
           }
+          videoElement.muted = false;
         } else {
           if (!videoElement.paused) {
             videoElement.pause();
             videoElement.currentTime = 0;
           }
+          videoElement.muted = true;
         }
       });
     };
 
-    const observer = new IntersectionObserver(
+    observer.current = new IntersectionObserver(
       handleIntersection,
       observerOptions
     );
 
     videoRefs.current.forEach((videoRef) => {
-      observer.observe(videoRef);
+      observer.current?.observe(videoRef);
     });
 
     return () => {
-      observer.disconnect();
+      observer.current?.disconnect();
     };
-  }, [videos]);
+  }, [videos, videoRefs]);
 
   const handleVideoRef = (index: number) => (ref: HTMLVideoElement | null) => {
     if (ref) {
       videoRefs.current[index] = ref;
+      observer.current?.observe(ref);
     }
   };
 
