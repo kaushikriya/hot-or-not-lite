@@ -3,9 +3,9 @@ import { ReactComponent as Icon } from "../Assets/hireMe.svg";
 
 export const HireMe = () => {
   return (
-    <div className="h-20 w-20 relative flex justify-center items-center">
-      <Icon className="w-20 h-20 animate-spin duration-1000 font-extrabold" />
-      <p className="text-md text-white whitespace-nowrap absolute bottom-0 mb-7 text-center w-full">
+    <div className="h-30 w-30 relative flex justify-center items-center">
+      <Icon className="w-[100px] h-[100px] animate-spin-slow font-extrabold" />
+      <p className="text-xs font-mono font-extrabold text-white whitespace-nowrap absolute bottom-0 mb-10 text-center w-full">
         Hire Me!
       </p>
     </div>
