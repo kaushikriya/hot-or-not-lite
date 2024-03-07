@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Video } from "../Data/useGetVideos";
 import { ReactComponent as Views } from "../Assets/views.svg";
 import Loader from "react-js-loader";
 import clsx from "clsx";
+import { AudioControlContext } from "../Contexts/AudioControlContext";
 
 export const VideoPlayer = ({
   video,
@@ -13,6 +14,7 @@ export const VideoPlayer = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { muted } = useContext(AudioControlContext);
 
   const onVideoTap = () => {
     if (videoRef.current) {
@@ -56,6 +58,7 @@ export const VideoPlayer = ({
               hidden: isLoading,
             })}
             autoPlay={true}
+            muted={muted}
             id="videoPlayer"
           >
             <source src={video.url} type="video/mp4" className="object-fit" />

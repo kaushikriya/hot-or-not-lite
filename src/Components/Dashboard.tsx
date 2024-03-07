@@ -38,11 +38,8 @@ export const Dashboard = () => {
             });
           }
         } else {
-          if (!videoElement.paused) {
-            videoElement.pause();
-            videoElement.currentTime = 0;
-          }
-          videoElement.muted = true;
+          videoElement.pause();
+          videoElement.currentTime = 0;
         }
       });
     };
@@ -86,7 +83,6 @@ export const Dashboard = () => {
     return (
       <div className="w-screen h-full flex justify-center items-center">
         <div className="bg-black w-full md:w-[50%] h-full flex justify-center items-center">
-          {" "}
           <Loader
             type="box-up"
             bgColor={"#E96B25"}
