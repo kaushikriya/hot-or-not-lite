@@ -38,7 +38,9 @@ export const Dashboard = () => {
               console.error("Error during video play:", error);
             });
           }
-          videoElement.muted = false;
+          if (!muted) {
+            videoElement.muted = false;
+          }
         } else {
           if (!videoElement.paused) {
             videoElement.pause();
@@ -61,7 +63,7 @@ export const Dashboard = () => {
     return () => {
       observer.current?.disconnect();
     };
-  }, [videos, videoRefs]);
+  }, [muted, videos]);
 
   const handleVideoRef = (index: number) => (ref: HTMLVideoElement | null) => {
     if (ref) {
