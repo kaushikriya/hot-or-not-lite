@@ -95,12 +95,12 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className="w-full absolute top-[5%] z-50 grid grid-cols-3">
+      <div className="w-screen absolute top-[5%] z-50 grid grid-cols-3">
         <div className="col-span-2 flex justify-center ml-[50%]">
           <HotOrNot />
         </div>
         <button
-          className="col-span-1 flex justify-end"
+          className="col-span-1 ml-[12%]"
           onClick={() => setMuted(!muted)}
         >
           {getAudioIcon()}
@@ -122,7 +122,7 @@ export const Dashboard = () => {
                 height={height}
                 width={width}
                 itemCount={videos.length + 1}
-                itemSize={1000}
+                itemSize={height}
                 onItemsRendered={onItemsRendered}
                 ref={ref}
                 style={{ scrollSnapType: "y mandatory" }}

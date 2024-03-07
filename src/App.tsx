@@ -10,7 +10,7 @@ function App() {
       <div className="w-full h-full">
         <Dashboard />
       </div>
-      <div className="p-2 grid fixed bottom-[2%] md:bottom-[1%] z-50 w-[90%] md:w-[40%] md:min-w-[40%]">
+      <div className="p-2 grid fixed bottom-[2%] md:bottom-[1%] z-50 w-[90%] md:w-[45%] md:min-w-[45%]">
         <Sidebar />
         <Footer />
       </div>
