@@ -40,13 +40,13 @@ export const VideoPlayer = ({
           videoRef.current = ref;
           setVideoRef(ref);
         }}
-        className="w-full md:w-[80%] object-fill h-screen z-10"
+        className="w-full md:w-[50%] object-fill h-screen z-10"
         muted={true}
         autoPlay={true}
       >
         <source src={video.url} type="video/mp4" className="object-fit" />
       </video>
-      <div className="absolute z-20 flex gap-2 items-center justify-start w-[75%] bottom-[12%]">
+      <div className="absolute z-20 flex gap-2 items-center justify-start w-[90%] md:w-[40%] bottom-[12%]">
         <img
           className="rounded-full h-10 w-10 border-white border-2"
           src={video.uploadedByAvatar}

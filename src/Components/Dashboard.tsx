@@ -6,6 +6,7 @@ import { ReactComponent as Unmute } from "../Assets/unmute.svg";
 import { ReactComponent as HotOrNot } from "../Assets/hotOrNot.svg";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 export const Dashboard = () => {
   const { data: videosData } = useGetVideos();
@@ -79,7 +80,7 @@ export const Dashboard = () => {
 
   const Row = ({ index, style }: { index: number; style: any }) => (
     <div
-      className="snap-start shrink-0 transition-all  place-items-center snap-always"
+      className="snap-start w-[40%] shrink-0 transition-all  place-items-center snap-always"
       ref={containerRef}
       style={style}
     >
@@ -115,17 +116,21 @@ export const Dashboard = () => {
         }}
       >
         {({ onItemsRendered, ref }) => (
-          <FixedSizeList
-            height={1000}
-            width={1000}
-            itemCount={videos.length + 1}
-            itemSize={1000}
-            onItemsRendered={onItemsRendered}
-            ref={ref}
-            style={{ scrollSnapType: "y mandatory" }}
-          >
-            {Row}
-          </FixedSizeList>
+          <AutoSizer>
+            {({ height, width }: { height: number; width: number }) => (
+              <FixedSizeList
+                height={height}
+                width={width}
+                itemCount={videos.length + 1}
+                itemSize={1000}
+                onItemsRendered={onItemsRendered}
+                ref={ref}
+                style={{ scrollSnapType: "y mandatory" }}
+              >
+                {Row}
+              </FixedSizeList>
+            )}
+          </AutoSizer>
         )}
       </InfiniteLoader>
     </>

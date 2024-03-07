@@ -6,9 +6,11 @@ import { Footer } from "./Components/Footer";
 
 function App() {
   return (
-    <div className="h-full w-full flex items-center justify-center backdrop-blur-xl">
-      <Dashboard />
-      <div className="p-2 grid fixed bottom-[8%] md:bottom-[2%] z-50 w-[90%] md:w-[40%]">
+    <div className="h-screen w-screen min-w-[40%] backdrop-blur-xl flex justify-center">
+      <div className="w-full h-full">
+        <Dashboard />
+      </div>
+      <div className="p-2 grid fixed bottom-[2%] md:bottom-[1%] z-50 w-[90%] md:w-[40%] md:min-w-[40%]">
         <Sidebar />
         <Footer />
       </div>
