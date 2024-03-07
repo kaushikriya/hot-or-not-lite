@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Video } from "../Data/useGetVideos";
 import { ReactComponent as Views } from "../Assets/views.svg";
 import Loader from "react-js-loader";
+import clsx from "clsx";
 
 export const VideoPlayer = ({
   video,
@@ -11,6 +12,7 @@ export const VideoPlayer = ({
   setVideoRef: (index: HTMLVideoElement | null) => void;
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const onVideoTap = () => {
     if (videoRef.current) {
@@ -22,6 +24,22 @@ export const VideoPlayer = ({
     }
   };
 
+  const handleLoadedData = () => {
+    setIsLoading(false);
+  };
+
+  const videoLoader = (
+    <div className="h-screen w-[90%] md:w-[50%] justify-center flex items-center bg-black animate-pulse">
+      <Loader
+        type="box-up"
+        bgColor={"#E96B25"}
+        color={"#E96B25"}
+        title={"Loading"}
+        size={100}
+      />
+    </div>
+  );
+
   return (
     <div className="grid relative w-full place-items-center">
       {video ? (
@@ -29,17 +47,20 @@ export const VideoPlayer = ({
           <video
             loop
             onClick={onVideoTap}
+            onLoadedData={handleLoadedData}
             ref={(ref) => {
               videoRef.current = ref;
               setVideoRef(ref);
             }}
-            className="w-full md:w-[50%] object-fill h-screen z-10"
+            className={clsx("w-full md:w-[50%] object-fill h-screen z-10", {
+              hidden: isLoading,
+            })}
             autoPlay={true}
             id="videoPlayer"
           >
             <source src={video.url} type="video/mp4" className="object-fit" />
           </video>
-          <div className="absolute z-20 flex gap-2 items-center justify-start w-[90%] md:w-[40%] bottom-[12%]">
+          <div className="absolute z-20 flex gap-2 items-center justify-start w-[90%] md:w-[45%] bottom-[7%]">
             <img
               className="rounded-full h-10 w-10 border-white border-2"
               src={video.uploadedByAvatar}
@@ -55,15 +76,11 @@ export const VideoPlayer = ({
           </div>
         </>
       ) : (
-        <div className="h-full w-full justify-center flex items-center">
-          <Loader
-            type="box-up"
-            bgColor={"#E96B25"}
-            color={"#E96B25"}
-            title={"Loading"}
-            size={100}
-          />
-        </div>
+        <Loader />
+      )}
+      {(isLoading ||
+        (videoRef.current && videoRef.current.buffered.length > 0)) && (
+        <>{videoLoader}</>
       )}
     </div>
   );
