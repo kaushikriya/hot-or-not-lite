@@ -22,8 +22,6 @@ export const VideoPlayer = ({
     }
   };
 
-  if (!video) return <div>Loading....</div>;
-
   return (
     <div className="grid relative w-full place-items-center">
       {video ? (
@@ -36,7 +34,6 @@ export const VideoPlayer = ({
               setVideoRef(ref);
             }}
             className="w-full md:w-[50%] object-fill h-screen z-10"
-            muted={true}
             autoPlay={true}
             id="videoPlayer"
           >
