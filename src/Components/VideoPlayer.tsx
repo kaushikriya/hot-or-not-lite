@@ -5,11 +5,9 @@ import { ReactComponent as Views } from "../Assets/views.svg";
 export const VideoPlayer = ({
   video,
   setVideoRef,
-  muted,
 }: {
   video: Video;
   setVideoRef: (index: HTMLVideoElement | null) => void;
-  muted: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -22,12 +20,6 @@ export const VideoPlayer = ({
       }
     }
   };
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = muted;
-    }
-  }, [muted]);
 
   if (!video) return <div>Loading....</div>;
 
@@ -43,6 +35,7 @@ export const VideoPlayer = ({
         className="w-full md:w-[50%] object-fill h-screen z-10"
         muted={true}
         autoPlay={true}
+        id="videoPlayer"
       >
         <source src={video.url} type="video/mp4" className="object-fit" />
       </video>

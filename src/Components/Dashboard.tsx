@@ -1,17 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Video, useGetVideos } from "../Data/useGetVideos";
 import { VideoPlayer } from "./VideoPlayer";
-import { ReactComponent as Mute } from "../Assets/mute.svg";
-import { ReactComponent as Unmute } from "../Assets/unmute.svg";
+
 import { ReactComponent as HotOrNot } from "../Assets/hotOrNot.svg";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
+import { AudioButton } from "./AudioButton";
 
 export const Dashboard = () => {
   const { data: videosData } = useGetVideos();
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [muted, setMuted] = useState(true);
   const [videos, setVideos] = useState<Video[]>([]);
 
   useEffect(() => {
@@ -38,9 +37,9 @@ export const Dashboard = () => {
               console.error("Error during video play:", error);
             });
           }
-          if (!muted) {
-            videoElement.muted = false;
-          }
+          // if (!muted) {
+          //   videoElement.muted = false;
+          // }
         } else {
           if (!videoElement.paused) {
             videoElement.pause();
@@ -63,21 +62,13 @@ export const Dashboard = () => {
     return () => {
       observer.current?.disconnect();
     };
-  }, [muted, videos]);
+  }, [videos]);
 
   const handleVideoRef = (index: number) => (ref: HTMLVideoElement | null) => {
     if (ref) {
       videoRefs.current[index] = ref;
       observer.current?.observe(ref);
     }
-  };
-
-  const getAudioIcon = () => {
-    return muted ? (
-      <Unmute className="w-9 h-9" />
-    ) : (
-      <Mute className="w-8 h-8" />
-    );
   };
 
   const Row = ({ index, style }: { index: number; style: any }) => (
@@ -90,7 +81,6 @@ export const Dashboard = () => {
         video={videos[index]}
         key={index}
         setVideoRef={handleVideoRef(index)}
-        muted={muted}
       />
     </div>
   );
@@ -101,12 +91,7 @@ export const Dashboard = () => {
         <div className="col-span-2 flex justify-center ml-[50%]">
           <HotOrNot />
         </div>
-        <button
-          className="col-span-1 ml-[12%]"
-          onClick={() => setMuted(!muted)}
-        >
-          {getAudioIcon()}
-        </button>
+        <AudioButton />
       </div>
       <InfiniteLoader
         isItemLoaded={(index) => index < videos.length}
