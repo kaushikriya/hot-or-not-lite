@@ -9,7 +9,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { AudioButton } from "./AudioButton";
 
 export const Dashboard = () => {
-  const { data: videosData } = useGetVideos();
+  const { data: videosData, isLoading } = useGetVideos();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [videos, setVideos] = useState<Video[]>([]);
 
@@ -84,6 +84,10 @@ export const Dashboard = () => {
       />
     </div>
   );
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
 
   return (
     <>

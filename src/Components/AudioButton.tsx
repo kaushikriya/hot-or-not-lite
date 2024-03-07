@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ReactComponent as Mute } from "../Assets/mute.svg";
 import { ReactComponent as Unmute } from "../Assets/unmute.svg";
 import React from "react";
@@ -14,7 +14,7 @@ export const AudioButton = () => {
     );
   };
 
-  const handleMute = () => {
+  const handleMute = useCallback(() => {
     setMuted(!muted);
     const videoPlayers = document.getElementsByTagName("video");
 
@@ -23,7 +23,7 @@ export const AudioButton = () => {
       const videoPlayer = videoPlayers[i];
       videoPlayer.muted = !muted;
     }
-  };
+  }, [muted]);
 
   useEffect(() => {
     return () => {
@@ -33,7 +33,7 @@ export const AudioButton = () => {
         videoPlayer.removeEventListener("play", handleMute);
       }
     };
-  }, []);
+  }, [handleMute]);
 
   return (
     <button className="col-span-1 ml-[12%]" onClick={handleMute}>
