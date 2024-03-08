@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Video } from "../Data/useGetVideos";
 import { ReactComponent as Views } from "../Assets/views.svg";
-import Loader from "react-js-loader";
 import clsx from "clsx";
 import useAudioControl from "../Hooks/useAudioControl";
+import { AnimatedLoader } from "./AnimatedLoader";
 
 export const VideoPlayer = ({
   video,
@@ -29,18 +29,6 @@ export const VideoPlayer = ({
   const handleLoadedData = () => {
     setIsLoading(false);
   };
-
-  const videoLoader = (
-    <div className="h-screen w-[90%] md:w-[50%] justify-center flex items-center bg-black animate-pulse">
-      <Loader
-        type="box-up"
-        bgColor={"#E96B25"}
-        color={"#E96B25"}
-        title={"Loading"}
-        size={100}
-      />
-    </div>
-  );
 
   return (
     <div className="grid relative w-full place-items-center">
@@ -81,11 +69,13 @@ export const VideoPlayer = ({
           </div>
         </div>
       ) : (
-        <Loader />
+        <AnimatedLoader />
       )}
       {(isLoading ||
         (videoRef.current && videoRef.current.buffered.length > 0)) && (
-        <>{videoLoader}</>
+        <>
+          <AnimatedLoader />
+        </>
       )}
     </div>
   );

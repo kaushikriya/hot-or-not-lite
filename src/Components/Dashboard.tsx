@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Video, useGetVideos } from "../Data/useGetVideos";
 import { VideoPlayer } from "./VideoPlayer";
-import Loader from "react-js-loader";
 import { ReactComponent as HotOrNot } from "../Assets/hotOrNot.svg";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
@@ -10,16 +9,17 @@ import { AudioButton } from "./AudioButton";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./ErrorFallback";
 import { useErrorHandler } from "../Contexts/ErrorHandlerContext";
+import { AnimatedLoader } from "./AnimatedLoader";
 
 export const Dashboard = () => {
   const { data: videosData, isLoading } = useGetVideos();
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const [videos, setVideos] = useState<Video[]>([]);
   const { resetKey } = useErrorHandler();
 
   useEffect(() => {
     if (videosData) setVideos(videosData);
   }, [videosData]);
+
   const videoRefs = useRef<HTMLVideoElement[]>([]);
   const observer = useRef<IntersectionObserver | null>(null);
 
@@ -72,7 +72,6 @@ export const Dashboard = () => {
   const Row = ({ index, style }: { index: number; style: any }) => (
     <div
       className="snap-start w-[40%] shrink-0 transition-all  place-items-center snap-always"
-      ref={containerRef}
       style={style}
     >
       <ErrorBoundary FallbackComponent={ErrorFallback} key={resetKey}>
@@ -86,19 +85,7 @@ export const Dashboard = () => {
   );
 
   if (isLoading) {
-    return (
-      <div className="w-screen h-full flex justify-center items-center">
-        <div className="bg-black w-full md:w-[50%] h-full flex justify-center items-center">
-          <Loader
-            type="box-up"
-            bgColor={"#E96B25"}
-            color={"#E96B25"}
-            title={"Loading"}
-            size={100}
-          />
-        </div>
-      </div>
-    );
+    return <AnimatedLoader />;
   }
 
   return (
