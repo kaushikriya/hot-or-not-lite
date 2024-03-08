@@ -20,7 +20,7 @@ function App() {
           <Dashboard />
         </div>
       </ErrorBoundary>
-      <div className="p-2 grid fixed bottom-[2%] md:bottom-[1%] z-50 w-[90%] md:w-[45%] md:min-w-[45%]">
+      <div className="px-2 grid fixed bottom-0 md:bottom-[1%] z-50 w-[90%] md:w-[45%] md:min-w-[45%]">
         <Sidebar />
         <Footer />
       </div>
