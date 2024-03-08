@@ -7,6 +7,8 @@ import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { AudioButton } from "./AudioButton";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./ErrorFallback";
 
 export const Dashboard = () => {
   const { data: videosData, isLoading } = useGetVideos();
@@ -71,11 +73,16 @@ export const Dashboard = () => {
       ref={containerRef}
       style={style}
     >
-      <VideoPlayer
-        video={videos[index]}
-        key={index}
-        setVideoRef={handleVideoRef(index)}
-      />
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => console.log("error boundary reset")}
+      >
+        <VideoPlayer
+          video={videos[index]}
+          key={index}
+          setVideoRef={handleVideoRef(index)}
+        />
+      </ErrorBoundary>
     </div>
   );
 

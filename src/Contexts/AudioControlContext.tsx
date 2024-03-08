@@ -22,7 +22,6 @@ export const AudioControlProvider: React.FC<{ children: React.ReactNode }> = ({
   console.log(muted);
 
   const handleChangeMuted = () => {
-    console.log("setting muted in context", !muted);
     setMuted(!muted);
   };
 
