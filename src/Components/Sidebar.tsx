@@ -6,7 +6,7 @@ import { iconStyle } from "./Footer";
 
 export const Sidebar = () => {
   return (
-    <div className="grid gap-8 justify-end my-1">
+    <div className="grid right-2 md:right-[26%] fixed bottom-[10%] gap-8 justify-end">
       <Like className={iconStyle} />
       <Share className={iconStyle} />
       <Hot className={iconStyle} />
