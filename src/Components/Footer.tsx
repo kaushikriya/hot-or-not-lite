@@ -1,4 +1,4 @@
-import { ReactComponent as Home } from "../Assets/home-icon.svg";
+import { ReactComponent as Home } from "../Assets/home.svg";
 import { ReactComponent as Subscribe } from "../Assets/subscribe.svg";
 import { ReactComponent as Add } from "../Assets/add.svg";
 import { ReactComponent as Options } from "../Assets/options.svg";
