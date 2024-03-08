@@ -45,7 +45,11 @@ export const VideoPlayer = ({
   return (
     <div className="grid relative w-full place-items-center">
       {video ? (
-        <>
+        <div
+          className={clsx("w-full h-full flex justify-center items-center", {
+            hidden: isLoading,
+          })}
+        >
           <video
             loop
             onClick={onVideoTap}
@@ -54,9 +58,7 @@ export const VideoPlayer = ({
               videoRef.current = ref;
               setVideoRef(ref);
             }}
-            className={clsx("w-full md:w-[50%] object-fill h-screen z-10", {
-              hidden: isLoading,
-            })}
+            className="w-full md:w-[50%] object-fill h-screen z-10"
             autoPlay={true}
             muted={muted}
             id="videoPlayer"
@@ -77,7 +79,7 @@ export const VideoPlayer = ({
               </div>
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <Loader />
       )}
