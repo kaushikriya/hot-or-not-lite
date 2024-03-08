@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { ReactComponent as Retry } from "../Assets/retry.svg";
+import { useErrorHandler } from "../Contexts/ErrorHandlerContext";
 
 export const ErrorFallback = ({
   error,
@@ -8,6 +9,7 @@ export const ErrorFallback = ({
   error: Error;
   resetErrorBoundary: () => void;
 }) => {
+  const { handleReset } = useErrorHandler();
   return (
     <div className="w-full h-screen flex justify-center items-center bg-black">
       <div className="grid justify-center items-center">
@@ -19,7 +21,7 @@ export const ErrorFallback = ({
           onClick={() => {
             console.log("resetting");
             resetErrorBoundary();
-            // handleReset();
+            handleReset();
           }}
         >
           <Retry className="w-8 h-8 cursor-pointer transition-transform transform hover:scale-110" />

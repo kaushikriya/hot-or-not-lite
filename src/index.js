@@ -7,22 +7,25 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./Components/ErrorFallback";
 import { AudioControlProvider } from "./Contexts/AudioControlContext";
+import { ErrorHandlerProvider } from "./Contexts/ErrorHandlerContext";
 
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onReset={() => console.log("error boundary reset")}
-    >
-      <QueryClientProvider client={queryClient}>
-        <AudioControlProvider>
-          <App />
-        </AudioControlProvider>
-      </QueryClientProvider>
-    </ErrorBoundary>
+    <ErrorHandlerProvider>
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => console.log("error boundary reset")}
+      >
+        <QueryClientProvider client={queryClient}>
+          <AudioControlProvider>
+            <App />
+          </AudioControlProvider>
+        </QueryClientProvider>
+      </ErrorBoundary>
+    </ErrorHandlerProvider>
   </React.StrictMode>
 );
 

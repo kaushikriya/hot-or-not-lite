@@ -9,11 +9,13 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { AudioButton } from "./AudioButton";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./ErrorFallback";
+import { useErrorHandler } from "../Contexts/ErrorHandlerContext";
 
 export const Dashboard = () => {
   const { data: videosData, isLoading } = useGetVideos();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [videos, setVideos] = useState<Video[]>([]);
+  const { resetKey } = useErrorHandler();
 
   useEffect(() => {
     if (videosData) setVideos(videosData);
@@ -73,10 +75,7 @@ export const Dashboard = () => {
       ref={containerRef}
       style={style}
     >
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onReset={() => console.log("error boundary reset")}
-      >
+      <ErrorBoundary FallbackComponent={ErrorFallback} key={resetKey}>
         <VideoPlayer
           video={videos[index]}
           key={index}
