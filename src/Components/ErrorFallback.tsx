@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ReactComponent as Retry } from "../Assets/retry.svg";
 import { useErrorHandler } from "../Contexts/ErrorHandlerContext";
 
@@ -19,7 +19,6 @@ export const ErrorFallback = ({
         <button
           className="w-full h-10 flex justify-center items-center"
           onClick={() => {
-            console.log("resetting");
             resetErrorBoundary();
             handleReset();
           }}

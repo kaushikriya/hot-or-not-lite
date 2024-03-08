@@ -24,7 +24,6 @@ export function ErrorHandlerProvider({
   const [resetKey, setResetKey] = useState(0);
 
   const handleReset = () => {
-    console.log("error boundary reset");
     setResetKey((prevKey) => prevKey + 1);
   };
 

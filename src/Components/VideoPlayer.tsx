@@ -1,9 +1,9 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Video } from "../Data/useGetVideos";
 import { ReactComponent as Views } from "../Assets/views.svg";
 import Loader from "react-js-loader";
 import clsx from "clsx";
-import { AudioControlContext } from "../Contexts/AudioControlContext";
+import useAudioControl from "../Hooks/useAudioControl";
 
 export const VideoPlayer = ({
   video,
@@ -14,7 +14,7 @@ export const VideoPlayer = ({
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { muted } = useContext(AudioControlContext);
+  const { muted } = useAudioControl();
 
   const onVideoTap = () => {
     if (videoRef.current) {

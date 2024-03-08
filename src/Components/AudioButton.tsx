@@ -1,10 +1,10 @@
 import { ReactComponent as Mute } from "../Assets/mute.svg";
 import { ReactComponent as Unmute } from "../Assets/unmute.svg";
-import React, { useContext } from "react";
-import { AudioControlContext } from "../Contexts/AudioControlContext";
+import React from "react";
+import useAudioControl from "../Hooks/useAudioControl";
 
 export const AudioButton = () => {
-  const { muted, handleChangeMuted } = useContext(AudioControlContext);
+  const { muted, handleChangeMuted } = useAudioControl();
 
   const getAudioIcon = () => {
     return muted ? (
