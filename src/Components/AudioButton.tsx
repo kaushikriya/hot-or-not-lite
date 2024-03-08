@@ -19,10 +19,7 @@ export const AudioButton = () => {
   };
 
   return (
-    <button
-      className="col-span-1 ml-[50%] md:ml-[12%] pl-3 md:pl-1"
-      onClick={handleMute}
-    >
+    <button className="mr-[5%]" onClick={handleMute}>
       {getAudioIcon()}
     </button>
   );

@@ -97,11 +97,11 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className="w-screen absolute top-[5%] z-50 grid grid-cols-3">
-        <div className="col-span-2 flex justify-center ml-[50%]">
+      <div className="w-screen flex justify-center items-center">
+        <div className="w-full md:w-[50%] absolute top-[5%] z-50 flex justify-end gap-[40%] py-2">
           <HotOrNot />
+          <AudioButton />
         </div>
-        <AudioButton />
       </div>
       <InfiniteLoader
         isItemLoaded={(index) => index < videos.length}
