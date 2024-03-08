@@ -53,7 +53,7 @@ export const VideoPlayer = ({
           >
             <source src={video.url} type="video/mp4" className="object-fit" />
           </video>
-          <div className="absolute z-50 min-h-screen h-full flex gap-2 items-center md:min-w-[50%] justify-start w-full md:w-[50%] bottom-[6%] ml-3">
+          <div className="absolute z-20 min-h-screen h-full flex gap-2 items-center md:min-w-[50%] justify-start w-full md:w-[50%] bottom-[6%] ml-3">
             <img
               className="rounded-full h-10 w-10 border-white border-2"
               src={video.uploadedByAvatar}

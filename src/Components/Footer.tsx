@@ -10,7 +10,7 @@ export const iconStyle =
 
 export const Footer = () => {
   return (
-    <div className="flex px-2 justify-between gap-[15%] w-full md:w-[50%] fixed bottom-5 md:bottom-[1%] z-50">
+    <div className="flex px-2 justify-between gap-[15%] w-full md:w-[50%] fixed bottom-5 md:bottom-[1%] z-20">
       <Home className={iconStyle} />
       <Subscribe className={iconStyle} />
       <Add className={iconStyle} />

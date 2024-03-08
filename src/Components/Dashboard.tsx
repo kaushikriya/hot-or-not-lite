@@ -91,7 +91,7 @@ export const Dashboard = () => {
   return (
     <>
       <div className="w-screen flex justify-center items-center">
-        <div className="w-full md:w-[50%] absolute top-[5%] z-50 flex justify-between py-2">
+        <div className="w-full md:w-[50%] absolute top-[5%] z-20 flex justify-between py-2">
           <HotOrNot className="ml-[45%]" />
           <AudioButton />
         </div>
