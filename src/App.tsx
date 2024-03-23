@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { Sidebar } from "./Components/Sidebar";
 import { Footer } from "./Components/Footer";
-import { HireMe } from "./Components/HireMe";
+import { NewStickerAnimation } from "./Components/NewStickerAnimation";
 import { Dashboard } from "./Components/Dashboard";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./Components/ErrorFallback";
@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="h-screen w-screen min-w-[40%] backdrop-blur-xl flex flex-row justify-center">
       <div className="ml-5 mt-5 z-20 fixed left-0">
-        <HireMe />
+        <NewStickerAnimation />
       </div>
       <ErrorBoundary FallbackComponent={ErrorFallback} key={resetKey}>
         <div className="w-full h-full">
